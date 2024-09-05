@@ -23,12 +23,17 @@ const App = () => {
 
   return (
     <div className={`app ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-      <Navbar 
-        toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
-        isDarkMode={isDarkMode} 
-        toggleTheme={toggleTheme} 
-      />
-      <TodoApp isDarkMode={isDarkMode} />
+       {isAuthenticated ? 
+       <>
+        <Navbar 
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
+          isDarkMode={isDarkMode} 
+          toggleTheme={toggleTheme} 
+        />
+        <TodoApp isDarkMode={isDarkMode} />
+       </> : <Login/>} 
+
+      
       
     </div>
   );
@@ -36,4 +41,3 @@ const App = () => {
 
 export default App;
 
-{/* {isAuthenticated ? <TodoApp/> : <Login/>} */}

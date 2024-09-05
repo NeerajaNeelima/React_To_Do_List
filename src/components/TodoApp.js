@@ -142,7 +142,7 @@ const TodoApp = ({ isDarkMode }) => {
         <div className={`${isSidebarOpen ? 'lg:w-[20%] sm:w-[10%]' : 'hidden'} ${!isDarkMode ? 'bg-custom-green' : 'bg-custom-light-black'}  h-screen ml-4  overflow-y-scroll hide-scrollbar`}>
         <div className='flex-col justify-center items-center'>
               <img src={profile} alt=' No Profile pic ' className='rounded-full flex justify-center items-center sm:w-10 sm:h-10 sm:ml-4 sm:mt-3  lg:ml-24 lg:w-20 lg:h-20'/>
-              <div className='flex justify-center items-center mt-2'>Hey, {userEmail}</div>
+              <div className={`flex justify-center items-center mt-2 ${!isDarkMode ? 'text-black' : 'text-white'}`}>Hey, {userEmail}</div>
             </div>
             <div className={`flex-col justify-center items-center  ${!isDarkMode ? 'bg-white' : 'bg-custom-black'}  mx-2 my-2 rounded-md px-3 py-3 mt-24`}>
               <div className='flex gap-3 justify-start items-center mt-2 mb-3 '>
