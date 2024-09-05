@@ -9,6 +9,8 @@ module.exports = {
         'custom-grey':'#BDBDBD',
         'placeholder-text':'#1B281B',
         'btn-color':'#357937',
+        'custom-light-black':'#2C2C2C',
+        'custom-black':'#232323'
       },
     },
   },

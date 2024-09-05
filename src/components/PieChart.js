@@ -4,14 +4,17 @@ import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
-const PieChart = ({ checkedCount, uncheckedCount }) => {
+const PieChart = ({ checkedCount, uncheckedCount,isDarkMode }) => {
+  const borderColor = isDarkMode ? '#ffffff' : '#000000';
+  const checkedCountColor = isDarkMode ?'#3F9142' : '#3F9142';
+  const uncheckedCountColor=isDarkMode ?'#142E15' :'#A0EDA4';
   const data = {
     labels: ['Checked', 'Unchecked'],
     datasets: [
       {
         data: [checkedCount, uncheckedCount],
-        backgroundColor: ['#3F9142', '#142E15'], // Light green and dark green
-        borderColor: ['#ffffff', '#ffffff'], // Border color white for cleaner separation
+        backgroundColor: [checkedCountColor, uncheckedCountColor], // Light green and dark green
+        borderColor: [borderColor, borderColor], // Border color white for cleaner separation
         borderWidth: 2, // Adjust border width
       },
     ],

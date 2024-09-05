@@ -25,7 +25,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import axios from 'axios';
 import Navbar from './Navbar';
 
-const TodoApp = () => {
+const TodoApp = ({ isDarkMode }) => {
   const apiUrl = process.env.REACT_APP_URL;
   //console.log(apiUrl)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -124,60 +124,70 @@ const TodoApp = () => {
     }
   };
 
+  const containerStyle = {
+    backgroundColor: isDarkMode ? '#1f2029' : '#F7F7F7',
+    color: isDarkMode ? '#ffffff' : '#000000',
+    borderRadius: '12px',
+    padding: '5px',
+    width: '350px',
+    marginLeft: '-10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  };
+
   return (
     <div>
-      <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      {/* <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} /> */}
       <div className="flex">
         {/* Sidebar */}
-        <div className={`${isSidebarOpen ? 'lg:w-[20%] sm:w-[10%]' : 'hidden'} bg-custom-green h-screen ml-4  overflow-y-scroll hide-scrollbar`}>
+        <div className={`${isSidebarOpen ? 'lg:w-[20%] sm:w-[10%]' : 'hidden'} ${!isDarkMode ? 'bg-custom-green' : 'bg-custom-light-black'}  h-screen ml-4  overflow-y-scroll hide-scrollbar`}>
         <div className='flex-col justify-center items-center'>
               <img src={profile} alt=' No Profile pic ' className='rounded-full flex justify-center items-center sm:w-10 sm:h-10 sm:ml-4 sm:mt-3  lg:ml-24 lg:w-20 lg:h-20'/>
               <div className='flex justify-center items-center mt-2'>Hey, {userEmail}</div>
             </div>
-            <div className='flex-col justify-center items-center  bg-white mx-2 my-2 rounded-md px-3 py-3 mt-24'>
+            <div className={`flex-col justify-center items-center  ${!isDarkMode ? 'bg-white' : 'bg-custom-black'}  mx-2 my-2 rounded-md px-3 py-3 mt-24`}>
               <div className='flex gap-3 justify-start items-center mt-2 mb-3 '>
-                <FaTasks className='text-2xl'/>
-                <div className='sm:hidden lg:block'>All Tasks</div>
+                <FaTasks className={`text-2xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                <div className={`sm:hidden lg:block ${!isDarkMode ? 'text-black' : 'text-white'} `}>All Tasks</div>
               </div>
               <div className='flex gap-3 justify-start items-center mt-2 mb-3 '>
-                <MdOutlineCalendarToday className='text-2xl'/>
-                <div className='sm:hidden lg:block'>Today</div>
+                <MdOutlineCalendarToday className={`text-2xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                <div className={`sm:hidden lg:block ${!isDarkMode ? 'text-black' : 'text-white'} `}>Today</div>
               </div>
               <div className='flex gap-3 justify-start items-center mt-2 mb-3 '>
-                <FaRegStar className='text-2xl'/>
-                <div className='sm:hidden lg:block'>Important</div>
+                <FaRegStar className={`text-2xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                <div className={`sm:hidden lg:block ${!isDarkMode ? 'text-black' : 'text-white'} `}>Important</div>
               </div>
               <div className='flex gap-3 justify-start items-center mt-2 mb-3 '>
-                <BiBookOpen className='text-2xl'/>
-                <div className='sm:hidden lg:block'>Planned</div>
+                <BiBookOpen className={`text-2xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                <div className={`sm:hidden lg:block ${!isDarkMode ? 'text-black' : 'text-white'} `}>Planned</div>
               </div>
               <div className='flex gap-3 justify-start items-center mt-2 mb-3  '>
-                <FaUserClock className='text-2xl'/>
-                <div className='sm:hidden lg:block'>Assigned to me</div>
+                <FaUserClock className={`text-2xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                <div className={`sm:hidden lg:block ${!isDarkMode ? 'text-black' : 'text-white'} `}>Assigned to me</div>
               </div>
             </div>
-            <div className='flex-col justify-center items-center  bg-white mx-2 my-2 lg:rounded-md px-3 py-3 mt-24 rounded-full'>
+            <div className={`flex-col justify-center items-center  ${!isDarkMode ? 'bg-white' : 'bg-custom-black'} mx-2 my-2 lg:rounded-md px-3 py-3 mt-24 rounded-full`}>
               <div className='flex gap-3'>
-                <IoMdAdd className='text-2xl'/>
-                <div className='sm:hidden lg:block'>Add List</div>
+                <IoMdAdd className={`text-2xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                <div className={`sm:hidden lg:block ${!isDarkMode ? 'text-black' : 'text-white'} `}>Add List</div>
               </div>
             </div>
-            <div className='flex-col justify-center items-center  bg-white mx-2 my-2 rounded-md px-3 py-3 mt-24'>
+            <div className={`flex-col justify-center items-center  ${!isDarkMode ? 'bg-white' : 'bg-custom-black'} mx-2 my-2 rounded-md px-3 py-3 mt-24`}>
               <div className='flex flex-col lg:flex-row  gap-3 items-center justify-between'>
-                <div className=' font-semibold lg:text-xl text-[10px]'>Today Task</div>
+                <div className={`font-semibold lg:text-xl text-[10px] ${!isDarkMode ? 'text-black' : 'text-white'}`}>Today Task</div>
                 <div className="flex items-center justify-center w-5 h-5 bg-custom-grey text-white font-bold rounded-full">
                   i
                 </div>
               </div>
-             <div className='font-semibold text-2xl sm:text-xl text-center lg:text-left'>{uncheckedCount+checkedCount}</div>
+             <div className={`font-semibold text-2xl sm:text-xl text-center lg:text-left ${!isDarkMode ? 'text-black' : 'text-white'}`}>{uncheckedCount+checkedCount}</div>
             <hr className='border-custom-grey mt-3 mb-3 border-2'/>
-            <PieChart checkedCount={checkedCount} uncheckedCount={uncheckedCount} />
+            <PieChart checkedCount={checkedCount} uncheckedCount={uncheckedCount} isDarkMode={!isDarkMode} />
           </div>
         </div>
 
         {/* Main Content - Todo List */}
         <div className={`${getMainContentClass()} transition-all duration-300 ml-4`}>
-          <div onClick={() => setIsAddTaskOpen(!isAddTaskOpen)} className="cursor-pointer flex items-center gap-2 mt-8">
+          <div onClick={() => setIsAddTaskOpen(!isAddTaskOpen)} className={`cursor-pointer flex items-center gap-2 mt-8 ${isDarkMode ? 'text-white' : 'text-black'}`}>
             To Do <IoMdArrowDropdown className="text-gray-600" />
           </div>
           {isAddTaskOpen && (
@@ -204,7 +214,7 @@ const TodoApp = () => {
           <hr className="border-custom-grey border-2 mt-3" />
           {tasks.filter((task) => !task.checked).map((task) => (
             <>
-            <div key={task.id} className="flex gap-2 items-center mt-3 cursor-pointer" onClick={() => handleTaskClick(task)}>
+            <div key={task.id} className={`flex gap-2 items-center mt-3 cursor-pointer ${isDarkMode ? 'text-white' : 'text-black'}`} onClick={() => handleTaskClick(task)}>
               {task.checked ? (
                 <ImCheckboxChecked className="text-2xl" onClick={() => handlecheck(task)} />
               ) : (
@@ -221,7 +231,7 @@ const TodoApp = () => {
             <hr className="border-custom-grey border-2" />
             {tasks.filter((task) => task.checked).map((task) => (
               <>
-                <div key={task.id} className="flex gap-2 items-center mt-3 cursor-pointer">
+                <div key={task.id} className={`flex gap-2 items-center mt-3 cursor-pointer ${isDarkMode ? 'text-white' : 'text-black'}`}>
                   <ImCheckboxChecked className="text-2xl text-green-600" onClick={() => handlecheck(task)} />
                   <strike>{task.text}</strike>
                 </div>
@@ -232,29 +242,29 @@ const TodoApp = () => {
         </div>
 
         {/* Task Details Section */}
-        <div className={`${getTaskDetailsClass()} transition-all duration-300 bg-custom-green h-screen p-4   `}>
+        <div className={`${getTaskDetailsClass()} transition-all duration-300 ${isDarkMode ? 'bg-custom-light-black' : 'bg-custom-green'}  h-screen p-4   `}>
           {selectedTask && openSelectedTask && (
-            <div className={`lg:w-1/4 sm:w-1/2 mt-4 bg-custom-green p-4 absolute  rounded-md flex-col  top-10 right-0 h-full transform transition-transform duration-200 ease-in-out overflow-y-auto hide-scrollbar ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`lg:w-1/4 sm:w-1/2 mt-4 ${isDarkMode ? 'bg-custom-light-black' : 'bg-custom-green'} p-4 absolute  rounded-md flex-col  top-10 right-0 h-full transform transition-transform duration-200 ease-in-out overflow-y-auto hide-scrollbar ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                      <hr className='border-custom-grey border-2'/>
                      <div className='flex gap-3 items-center justify-start px-2 py-3'>
-                       <MdCheckBoxOutlineBlank className='text-xl'/>
-                       <h2 className='text-[13px] font-semibold'>{selectedTask.text}</h2>
+                       <MdCheckBoxOutlineBlank className={`text-xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                       <h2 className={`text-[13px] font-semibold ${!isDarkMode ? 'text-black' : 'text-white'}`}>{selectedTask.text}</h2>
                      </div>
                      <hr className='border-custom-grey border-2'/>
                      <div className='flex gap-3 items-center justify-start px-2 py-3'>
-                       <IoMdAdd className='text-xl'/>
-                       <h2 className='text-[13px] font-semibold'>Add Step</h2>
+                       <IoMdAdd className={`text-xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                       <h2 className={`text-[13px] font-semibold ${!isDarkMode ? 'text-black' : 'text-white'}`}>Add Step</h2>
                      </div>
                      <hr className='border-custom-grey border-2'/>
                      <div className='flex gap-3 items-center justify-start px-2 py-3'>
-                       <IoIosNotificationsOutline className='text-xl'/>
-                       <h2 className='text-[13px] font-semibold'>Set Reminder</h2>
+                       <IoIosNotificationsOutline className={`text-xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                       <h2 className={`text-[13px] font-semibold ${!isDarkMode ? 'text-black' : 'text-white'}`}>Set Reminder</h2>
                      </div>
                      <hr className='border-custom-grey border-2'/>
                      <div className='flex-col gap-3 items-center justify-start px-2 py-3'>
                       <div className='flex gap-3 items-center justify-start mb-2'>
-                        <CiCalendar className='text-xl'/>
-                        <h2 className='text-[13px] font-semibold'>Add Due Date</h2>
+                        <CiCalendar className={`text-xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                        <h2 className={`text-[13px] font-semibold ${!isDarkMode ? 'text-black' : 'text-white'}`}>Add Due Date</h2>
                       </div>
                        
                        {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -265,27 +275,54 @@ const TodoApp = () => {
                             renderInput={(params) => <TextField {...params} />}
                           />
                         </LocalizationProvider> */}
-                         <div className="calendar-container">
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <DateCalendar />
-                            </LocalizationProvider>
-                          </div>
+                         <div
+      className={`calendarContainer ${isDarkMode ? 'bg-custom-black' : 'bg-custom-white'}`}
+    >
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar
+          className={`${isDarkMode ? 'text-custom-dayDark' : 'text-custom-dayLight'}`}
+          sx={{
+            '.MuiTypography-root': {
+              color: isDarkMode ? '#ffffff' : '#000000',
+            },
+            '.MuiPickersDay-day': {
+              color: isDarkMode ? '#ffffff' : '#000000',
+            },
+            '.MuiPickersDay-daySelected': {
+              backgroundColor: isDarkMode ? '#444' : '#ddd',
+            },
+            '.MuiPickersDay-dayInCurrentMonth': {
+              color: isDarkMode ? '#ffffff' : '#000000',
+            },
+            '.MuiPickersDay-dayOutsideMonth': {
+              color: isDarkMode ? '#666' : '#aaa',
+            },
+            '.MuiPickersDay-dayHover': {
+              backgroundColor: isDarkMode ? '#333' : '#eee',
+            },
+            '.MuiPickersSlideTransition-root':{
+              color: isDarkMode ? '#ffffff' : '#000000',
+            }
+          }}
+        />
+      </LocalizationProvider>
+    </div>
 
                      </div>
                      <hr className='border-custom-grey border-2'/>
                      <div className='flex gap-3 items-center justify-start px-2 py-3'>
-                       <BsRepeat className='text-xl'/>
-                       <h2 className='text-[13px] font-semibold'>Repeat</h2>
+                       <BsRepeat className={`text-xl ${!isDarkMode ? 'text-black' : 'text-white'}`}/>
+                       <h2 className={`text-[13px] font-semibold ${!isDarkMode ? 'text-black' : 'text-white'}`}>Repeat</h2>
                      </div>
                      <hr className='border-custom-grey border-2'/>
-                     <textarea className='bg-transparent w-full resize-none px-2 py-3 h-60'>
+                     <textarea className={`bg-transparent w-full resize-none px-2 py-3 h-60 ${!isDarkMode ? 'text-black' : 'text-white'}`}>
                        Add Notes
                      </textarea>
                      <hr className='border-custom-grey border-2'/>
                      <div className='flex justify-between items-center px-2 py-1 mt-2'>
-                       <IoMdClose className='text-xl cursor-pointer' onClick={handleCloseTask}/>
+                       <IoMdClose className={`text-xl cursor-pointer ${!isDarkMode ? 'text-black' : 'text-white'}`} onClick={handleCloseTask}/>
                        <div>Created Today</div>
-                       <RiDeleteBin6Fill className='text-xl cursor-pointer' onClick={handleDeleteTask}/>
+                       <RiDeleteBin6Fill className={`text-xl cursor-pointer ${!isDarkMode ? 'text-black' : 'text-white'}`} onClick={handleDeleteTask}/>
                      </div>
                    </div>
           )}
